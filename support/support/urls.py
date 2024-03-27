@@ -42,7 +42,9 @@ async def get_current_market_state(request: HttpRequest):
     url = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=XSN17SDSA5RAM5W2"  # noqa
     async with httpx.AsyncClient() as client:
         response: httpx.Response = await client.get(url)
-    rate: str = response.json()["Realtime Currency Exchange Rate"]["5. Exchange Rate"]  # noqa
+    rate: str = response.json()["Realtime Currency Exchange Rate"][
+        "5. Exchange Rate"
+    ]  # noqa
     return JsonResponse({"rate": rate})
 
 
@@ -55,7 +57,9 @@ async def get_exchange_rate(request: HttpRequest) -> HttpResponse:
 
     async with httpx.AsyncClient() as client:
         response: httpx.Response = await client.get(url=url)
-    rate: str = response.json()["Realtime Currency Exchange Rate"]["5. Exchange Rate"]  # noqa
+    rate: str = response.json()["Realtime Currency Exchange Rate"][
+        "5. Exchange Rate"
+    ]  # noqa
 
     result = f"Exchange rate for {source} to {destination} is {rate}"
     return HttpResponse(result)
